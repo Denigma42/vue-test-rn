@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useUserModalStore } from '@/stores/useUserModalStore';
 import type { User } from '@/types/User';
 
 defineProps<{
@@ -7,23 +8,20 @@ defineProps<{
     error: string | null;
 }>();
 
-const emit = defineEmits<{
-    (e: 'select-user', user: User): void;
-    (e: 'retry'): void;
-}>();
+const { openModal } = useUserModalStore();
 
 const handleRowClick = (row: User) => {
-    emit('select-user', row);
+    openModal(row); 
 };
 </script>
 
 <template>
     <div>
-        <!-- скелетон -->
+        <!-- скелетон при загрузке -->
         <el-skeleton :rows="5" animated v-if="loading" />
 
         <!-- если ошибка -->
-        <el-alert v-else-if="error" :title="error" type="error" show-icon closable @close="$emit('retry')" />
+        <el-alert v-else-if="error" :title="error" type="error" show-icon closable />
 
         <el-table v-else :data="filteredUsers" stripe highlight-current-row @row-click="handleRowClick">
             <el-table-column prop="name" label="Имя" />

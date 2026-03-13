@@ -1,17 +1,14 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useGetAllUsers } from '@/hooks/useGetAllUsers';
-import type { User } from '@/types/User';
 import UserSearch from '@/components/UserSearch.vue';
 import CompanyFilter from '@/components/CompanyFilter.vue';
 import UserTable from '@/components/UserTable.vue';
-import UserDetailsModal from '@/components/UserDetailsModal.vue';
 
 const { getAllUsers, users, isLoading, error } = useGetAllUsers();
 
 const searchQuery = ref('');
 const selectedCompany = ref<string | null>(null);
-const selectedUser = ref<User | null>(null);
 
 const uniqueCompanies = computed(() => {
     const companies = users.value.map(u => u.company.name);
@@ -37,13 +34,9 @@ const filteredUsers = computed(() => {
     return result;
 });
 
-const openDetails = (user: User) => {
-    selectedUser.value = user;
-};
+// чтобы обращаться к api еще до отрисовки в DOM
+getAllUsers();
 
-onMounted(() => {
-    getAllUsers();
-});
 </script>
 
 <template>
@@ -55,8 +48,6 @@ onMounted(() => {
             <CompanyFilter v-model="selectedCompany" :companies="uniqueCompanies" class="flex-1"/>
         </div>
 
-        <UserTable :filtered-users="filteredUsers" :loading="isLoading" :error="error" @select-user="openDetails" />
-
-        <UserDetailsModal :user="selectedUser" @close="selectedUser = null" />
+        <UserTable :filtered-users="filteredUsers" :loading="isLoading" :error="error" />
     </div>
 </template>

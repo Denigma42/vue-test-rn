@@ -1,36 +1,41 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
-import type { User } from '@/types/User';
+import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useUserModalStore } from '@/stores/useUserModalStore';
 
-const props = defineProps<{ user: User | null }>();
+const modalStore = useUserModalStore();
+const { isOpen, selectedUser } = storeToRefs(modalStore);
 
-const visible = ref(false);
+const visible = computed({
+    get: () => isOpen.value,
+    set: (value) => {
+        if (!value) modalStore.closeModal();
+    }
+});
 
 const modalField = computed(() => {
-    if (!props.user) return [];
+    const user = selectedUser.value;
+    if (!user) return [];
     return [
-        { label: "Имя", text: props.user.name },
-        { label: "Username", text: props.user.username },
-        { label: "Email", text: props.user.email },
-        { label: "Телефон", text: props.user.phone },
-        { label: "Веб-сайт", text: props.user.website },
-        { label: "Адрес", text: `${props.user.address.city}, ${props.user.address.street}` },
-        { label: "Компания", text: `${props.user.company.name} — ${props.user.company.catchPhrase}` }
+        { label: "Name", text: user.name },
+        { label: "Username", text: user.username },
+        { label: "Email", text: user.email },
+        { label: "Phone", text: user.phone },
+        { label: "Website", text: user.website },
+        { label: "Address", text: `${user.address.city}, ${user.address.street}` },
+        { label: "Company", text: `${user.company.name} — ${user.company.catchPhrase}` }
     ];
 });
-
-watch(() => props.user, (val) => {
-    visible.value = !!val;
-});
-
 </script>
 
 <template>
-    <el-dialog v-model="visible" title="Детали пользователя" width="500px" destroy-on-close>
-        <el-descriptions v-if="user" :column="1" border>
-            <el-descriptions-item v-for="field in modalField" :key="field.label" :label="field.label">
-                {{ field.text }}
-            </el-descriptions-item>
-        </el-descriptions>
-    </el-dialog>
+    <Teleport to="body">
+        <el-dialog v-model="visible" title="Детали пользователя" width="500px" destroy-on-close>
+            <el-descriptions v-if="selectedUser" :column="1" border>
+                <el-descriptions-item v-for="field in modalField" :key="field.label" :label="field.label">
+                    {{ field.text }}
+                </el-descriptions-item>
+            </el-descriptions>
+        </el-dialog>
+    </Teleport>
 </template>

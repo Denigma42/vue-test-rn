@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import UserDetailsModal from "./components/UserDetailsModal.vue";
 import MainLayout from "./layout/MainLayout.vue";
 import MainView from "./views/MainView.vue";
 
@@ -8,4 +9,6 @@ import MainView from "./views/MainView.vue";
   <MainLayout>
     <MainView />
   </MainLayout>
+
+  <UserDetailsModal />
 </template>
