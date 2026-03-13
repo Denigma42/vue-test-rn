@@ -110,13 +110,12 @@ src/
   - Формирует:
     - `uniqueCompanies` (уникальные компании)
     - `filteredUsers` (результат поиска + фильтра)
-  - Важно: фильтрация сделана через `computed`/`filter` — исходный `users` не мутируется
 
 - **`src/components/UserSearch.vue`**
-  - Поле ввода поиска (v-model)
+  - Поле ввода поиска
 
 - **`src/components/CompanyFilter.vue`**
-  - Select фильтра по компании (v-model)
+  - Select фильтра по компании
 
 - **`src/components/UserTable.vue`**
   - Таблица пользователей
