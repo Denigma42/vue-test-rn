@@ -10,5 +10,6 @@ import MainView from "./views/MainView.vue";
     <MainView />
   </MainLayout>
 
+  <!-- открытие модалки сделал глобально для масштабируемости, вдруг нужно будет еще откуда-то открывать ее -->
   <UserDetailsModal />
 </template>

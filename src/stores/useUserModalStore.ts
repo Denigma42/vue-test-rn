@@ -1,3 +1,5 @@
+// открытие модалки сделал глобально для масштабируемости, вдруг нужно будет еще откуда-то открывать ее
+
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { User } from '@/types/User';
