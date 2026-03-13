@@ -67,6 +67,34 @@ npm run lint
 
 Код разбит на небольшие части, чтобы не складывать всю логику в один файл и не мутировать исходные данные напрямую.
 
+### Структура `src/`
+
+```text
+src/
+  - assets/
+    - logo.svg
+    - main.css
+  - components/
+    - CompanyFilter.vue
+    - UserDetailsModal.vue
+    - UserSearch.vue
+    - UserTable.vue
+  - hooks/
+    - useGetAllUsers.ts
+  - layout/
+    - MainLayout.vue
+  - services/
+    - apiClient.ts
+  - stores/
+    - useUserModalStore.ts
+  - types/
+    - User.ts
+  - views/
+    - MainView.vue
+  - App.vue
+  - main.ts
+```
+
 - **`src/services/apiClient.ts`**
   - Axios‑клиент с `baseURL` (можно переопределить через `VITE_API_BASE_URL`)
 
