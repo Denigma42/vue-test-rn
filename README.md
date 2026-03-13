@@ -131,7 +131,7 @@ src/
 - **`src/App.vue`**
   - Подключает `MainView` и глобально рендерит `UserDetailsModal`
 
-## Поток данных (кратко)
+## Поток данных
 
 1. `MainView` вызывает `getAllUsers()` из `useGetAllUsers`.
 2. Полученные `users` используются для вычисления `uniqueCompanies` и `filteredUsers`.
