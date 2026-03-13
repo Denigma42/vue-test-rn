@@ -7,7 +7,7 @@ import CompanyFilter from '@/components/CompanyFilter.vue';
 import UserTable from '@/components/UserTable.vue';
 import UserDetailsModal from '@/components/UserDetailsModal.vue';
 
-const { getAllUsers, users, loading, error } = useGetAllUsers();
+const { getAllUsers, users, isLoading, error } = useGetAllUsers();
 
 const searchQuery = ref('');
 const selectedCompany = ref<string | null>(null);
@@ -25,7 +25,8 @@ const filteredUsers = computed(() => {
     if (searchQuery.value.trim()) {
         const query = searchQuery.value.toLowerCase();
         result = result.filter(
-            user => user.name.toLowerCase().includes(query) || user.email.toLowerCase().includes(query)
+            user => user.name.toLowerCase().includes(query) || 
+            user.email.toLowerCase().includes(query)
         );
     }
 
@@ -54,7 +55,7 @@ onMounted(() => {
             <CompanyFilter v-model="selectedCompany" :companies="uniqueCompanies" class="flex-1"/>
         </div>
 
-        <UserTable :filtered-users="filteredUsers" :loading="loading" :error="error" @select-user="openDetails" />
+        <UserTable :filtered-users="filteredUsers" :loading="isLoading" :error="error" @select-user="openDetails" />
 
         <UserDetailsModal :user="selectedUser" @close="selectedUser = null" />
     </div>

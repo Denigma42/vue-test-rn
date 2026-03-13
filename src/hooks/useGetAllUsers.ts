@@ -1,9 +1,10 @@
 import Axios from "@/services/apiClient";
+import type { User } from "@/types/User";
 import { ref } from "vue";
 
 export const useGetAllUsers = () => {
     const isLoading = ref(true);
-    const users = ref([]);
+    const users = ref<User[]>([]);
     const error = ref<string | null>(null);
 
     const getAllUsers = async () => {
