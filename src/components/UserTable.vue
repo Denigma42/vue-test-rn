@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUserModalStore } from '@/stores/useUserModalStore';
+import { useUserDetailsModal } from '@/composables/useUserDetailsModal';
 import type { User } from '@/types/User';
 
 defineProps<{
@@ -8,7 +8,7 @@ defineProps<{
     error: string | null;
 }>();
 
-const { openModal } = useUserModalStore();
+const { openModal } = useUserDetailsModal();
 
 const handleRowClick = (row: User) => {
     openModal(row); 

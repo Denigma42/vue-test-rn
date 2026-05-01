@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useUserModalStore } from '@/stores/useUserModalStore';
+import { useUserDetailsModal } from '@/composables/useUserDetailsModal';
 
-const modalStore = useUserModalStore();
-const { isOpen, selectedUser } = storeToRefs(modalStore);
+const modal = useUserDetailsModal();
+const { isOpen, selectedUser } = modal;
 
 const visible = computed({
     get: () => isOpen.value,
     set: (value) => {
-        if (!value) modalStore.closeModal();
+        if (!value) modal.closeModal();
     }
 });
 

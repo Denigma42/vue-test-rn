@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import UserDetailsModal from "./components/UserDetailsModal.vue";
 import MainLayout from "./layout/MainLayout.vue";
 import MainView from "./views/MainView.vue";
-
+import UserDetailsModalContext from "./context/UserDetailsModalContext.vue";
 </script>
 
 <template>
   <MainLayout>
-    <MainView />
+    <UserDetailsModalContext>
+        <MainView />
+    </UserDetailsModalContext>
   </MainLayout>
-
-  <!-- открытие модалки сделал глобально для масштабируемости, вдруг нужно будет еще откуда-то открывать ее -->
-  <UserDetailsModal />
 </template>
